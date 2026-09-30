@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Creative Marketing Agency</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #eeeeee;
+}
+
+canvas {
+    width: 600px;
+    max-width: 95vw;
+    height: auto;
+    background: white;
+    box-shadow: 0 10px 40px rgba(0,0,0,.15);
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="flyer" width="1000" height="1000"></canvas>
+
+<script>
+
+const canvas = document.getElementById("flyer");
+const ctx = canvas.getContext("2d");
+
+const W = canvas.width;
+const H = canvas.height;
+
+const yellow = "#ffc400";
+const black = "#111111";
+const white = "#ffffff";
+const gray = "#f1f1f1";
+
+/* --------------------------
+   HELPERS
+--------------------------- */
+
+function text(text, x, y, size, weight = "400", color = black, align = "left") {
+    ctx.fillStyle = color;
+    ctx.font = `${weight} ${size}px Arial`;
+    ctx.textAlign = align;
+    ctx.textBaseline = "alphabetic";
+    ctx.fillText(text, x, y);
+}
+
+function circle(x, y, radius, color) {
+    ctx.beginPath();
+    ctx.arc(x, y, radius, 0, Math.PI * 2);
+    ctx.fillStyle = color;
+    ctx.fill();
+}
+
+function triangle(x, y, size, color) {
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    ctx.lineTo(x, y + size);
+    ctx.lineTo(x + size, y + size / 2);
+    ctx.closePath();
+    ctx.fillStyle = color;
+    ctx.fill();
+}
+
+function roundedRect(x, y, w, h, radius, color) {
+    ctx.beginPath();
+    ctx.roundRect(x, y, w, h, radius);
+    ctx.fillStyle = color;
+    ctx.fill();
+}
+
+/* --------------------------
+   BACKGROUND
+--------------------------- */
+
+ctx.fillStyle = white;
+ctx.fillRect(0, 0, W, H);
+
+/* LEFT YELLOW AREA */
+
+ctx.fillStyle = yellow;
+ctx.fillRect(65, 0, 300, H);
+
+/* left white strip */
+
+ctx.fillStyle = white;
+ctx.fillRect(0, 0, 65, H);
+
+/* --------------------------
+   FADED CITY BACKGROUND
+--------------------------- */
+
+ctx.save();
+
+ctx.globalAlpha = 0.07;
+ctx.fillStyle = "#333";
+
+ctx.fillRect(0, 450, 50, 550);
+ctx.fillRect(380, 530, 70, 470);
+ctx.fillRect(455, 480, 80, 520);
+ctx.fillRect(545, 570, 55, 430);
+ctx.fillRect(610, 500, 85, 500);
+ctx.fillRect(710, 550, 50, 450);
+ctx.fillRect(770, 470, 80, 530);
+ctx.fillRect(865, 520, 70, 480);
+ctx.fillRect(945, 450, 55, 550);
+
+ctx.restore();
+
+/* --------------------------
+   LEFT DECORATIVE DOTS
+--------------------------- */
+
+circle(32, 42, 14, yellow);
+circle(32, 92, 14, black);
+circle(32, 140, 14, yellow);
+
+/* --------------------------
+   SOCIAL ICONS
+--------------------------- */
+
+circle(150, 50, 19, white);
+circle(218, 50, 19, white);
+circle(286, 50, 19, white);
+
+text("f", 150, 58, 24, "700", yellow, "center");
+text("◎", 218, 59, 25, "700", yellow, "center");
+text("♥", 286, 57, 20, "700", yellow, "center");
+
+/* --------------------------
+   RIGHT DECORATIVE DOTS
+--------------------------- */
+
+circle(390, 410, 14, yellow);
+circle(390, 458, 14, black);
+circle(390, 505, 14, yellow);
+
+/* --------------------------
+   MAIN HEADLINE
+--------------------------- */
+
+text(
+    "WE ARE",
+    625,
+    170,
+    48,
+    "400",
+    black,
+    "center"
+);
+
+/*
+Creative
+*/
+
+ctx.font = "700 112px Georgia";
+ctx.textAlign = "center";
+
+const gradient = ctx.createLinearGradient(470, 0, 760, 0);
+gradient.addColorStop(0, "#ffd300");
+gradient.addColorStop(1, "#f4b700");
+
+ctx.fillStyle = gradient;
+ctx.fillText("Creative", 650, 292);
+
+/*
+MARKETING
+*/
+
+text(
+    "MARKETING",
+    650,
+    382,
+    72,
+    "500",
+    black,
+    "center"
+);
+
+/* Agency */
+
+ctx.strokeStyle = yellow;
+ctx.lineWidth = 3;
+
+ctx.beginPath();
+ctx.moveTo(490, 440);
+ctx.lineTo(545, 440);
+ctx.stroke();
+
+ctx.beginPath();
+ctx.moveTo(755, 440);
+ctx.lineTo(940, 440);
+ctx.stroke();
+
+text(
+    "Agency",
+    650,
+    458,
+    65,
+    "700",
+    yellow,
+    "center"
+);
+
+/* --------------------------
+   SERVICES
+--------------------------- */
+
+const serviceX = 550;
+
+triangle(serviceX, 535, 25, yellow);
+text("Digital Marketing", serviceX + 42, 558, 30, "400");
+
+triangle(serviceX, 590, 25, yellow);
+text("Graphic design", serviceX + 42, 613, 30, "400");
+
+triangle(serviceX, 645, 25, yellow);
+text("SEO campaign", serviceX + 42, 668, 30, "400");
+
+/* --------------------------
+   CTA BUTTON
+--------------------------- */
+
+roundedRect(
+    485,
+    740,
+    465,
+    78,
+    38,
+    yellow
+);
+
+text(
+    "JOIN US",
+    717,
+    796,
+    48,
+    "400",
+    white,
+    "center"
+);
+
+/* --------------------------
+   CONTACT INFO
+--------------------------- */
+
+text(
+    "for more info.",
+    490,
+    865,
+    22,
+    "700",
+    black
+);
+
+/* Phone */
+
+ctx.strokeStyle = black;
+ctx.lineWidth = 4;
+
+ctx.beginPath();
+ctx.arc(510, 908, 18, 0, Math.PI * 2);
+ctx.stroke();
+
+text(
+    "☎",
+    510,
+    917,
+    25,
+    "400",
+    black,
+    "center"
+);
+
+text(
+    "000 000 0000",
+    550,
+    918,
+    30,
+    "700"
+);
+
+/* Website */
+
+text(
+    "◎",
+    510,
+    970,
+    32,
+    "400",
+    black,
+    "center"
+);
+
+text(
+    "www.website.com",
+    550,
+    978,
+    28,
+    "400"
+);
+
+/* --------------------------
+   PERSON IMAGE
+--------------------------- */
+
+const person = new Image();
+
+person.src = "person.png";
+
+person.onload = () => {
+
+    /*
+    Draw after background but we need the person
+    to overlap the design.
+
+    Because this loads asynchronously,
+    we're drawing the person last.
+    */
+
+    const desiredHeight = 790;
+
+    const ratio =
+        person.width / person.height;
+
+    const desiredWidth =
+        desiredHeight * ratio;
+
+    ctx.drawImage(
+        person,
+        20,
+        210,
+        desiredWidth,
+        desiredHeight
+    );
+};
+
+</script>
+
+</body>
+</html>
